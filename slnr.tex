@@ -11,29 +11,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
-\theoremstyle{theorem}
-\newtheorem{thm}{\protect\theoremname}
-  \theoremstyle{plain}
+\theoremstyle{definition}
+\newtheorem{thm}{\protect\theoremname}[section]
+  \theoremstyle{definition}
   \newtheorem{fact}[thm]{\protect\factname}
   \theoremstyle{definition}
   \newtheorem{defn}[thm]{\protect\definitionname}
-  \theoremstyle{plain}
+  \theoremstyle{definition}
   \newtheorem{lem}[thm]{\protect\lemmaname}
   \theoremstyle{remark}
   \newtheorem{rem}[thm]{\protect\remarkname}
-  \theoremstyle{plain}
+  \theoremstyle{definition}
   \newtheorem{cor}[thm]{\protect\corollaryname}
-  \theoremstyle{plain}
+  \theoremstyle{definition}
   \newtheorem*{thm*}{\protect\theoremname}
-  \theoremstyle{plain}
+  \theoremstyle{definition}
   \newtheorem{prop}[thm]{\protect\propositionname}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 
 \input{general-preamble}          
-
-
-%\thanks{Kao gratefully acknowledges partial support from the National Science Foundation Postdoctoral Research Fellowship and from U.S. National Science Foundation grants DMS 1107452, 1107263, 1107367 "RNMS: GEometric structures And Representation varieties" (the GEAR Network).}
 
 \def\a{\alpha}
 \def\b{\beta}
@@ -49,8 +46,14 @@
 \def\C{\mathbb{C}}
 \def\H{\mathbb{H}}
 
+
 \def\pa{\partial}
 \def\ep{\varepsilon}
+\def\blp{B_{\text{loc}}(p)}
+\def\hol{H\"older }
+\def\fb{fiber-bunched }
+\def\mangle{\measuredangle}
+\def\psip{\psi_p}
 
 \makeatother
   \providecommand{\corollaryname}{Corollary}
@@ -67,8 +70,43 @@
 \title{Quasimultiplicativity}
 
 \maketitle
+\section{Introduction/Summary}
+In this article, we prove Quasimultiplicativity of two classes of \hol and \fb cocycles over a hyperbolic base.
+
+\begin{thm}
+The singular value potential $\Psi_s$ is quasimultiplicative for all $s>0$.
+\end{thm}
+
+\begin{thm}
+If $P$ and $\psip^z$ are irreducible, then the cocycle is quasimultiplicative.
+\end{thm}
+
+\begin{thm}
+The set of all possible pointwise Lyapunov exponent is an interval. 
+\end{thm}
+Maybe extend this to higher dimension?
+
+\begin{thm}
+Multifractal analysis.
+\end{thm}
+
+\newpage
+\section{Preliminary}
+\section{Details}
+\subsection{Connecting orbits}
 
 
+
+Connecting two orbits. Given $x,y \in \blp$, we define the bracket $[x,y]$ as the unique..
+\begin{lem}
+Given $\ep>0$, there exists $\d>0$ and $c>0$ such that $\mangle \Big(u(A^n(x)),H^s_{p,x}E^u \Big)<\ep $, then 
+$$\|A^{n+m}(\bar{t})\| \geq c\|A^n(\bar{t})\| \|A^m(t)\|$$
+where $t = [x,y]$ and $\bar{t} = f^{-n}t$.
+\end{lem}
+\begin{proof}
+How about the wedge?\\
+Note from the definition that 
+\end{proof}
 
 
 %\bibliographystyle{amsalpha}
