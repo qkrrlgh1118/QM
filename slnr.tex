@@ -1,0 +1,77 @@
+\documentclass[11pt,oneside,reqno]{amsart}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage{color}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\theoremstyle{theorem}
+\newtheorem{thm}{\protect\theoremname}
+  \theoremstyle{plain}
+  \newtheorem{fact}[thm]{\protect\factname}
+  \theoremstyle{definition}
+  \newtheorem{defn}[thm]{\protect\definitionname}
+  \theoremstyle{plain}
+  \newtheorem{lem}[thm]{\protect\lemmaname}
+  \theoremstyle{remark}
+  \newtheorem{rem}[thm]{\protect\remarkname}
+  \theoremstyle{plain}
+  \newtheorem{cor}[thm]{\protect\corollaryname}
+  \theoremstyle{plain}
+  \newtheorem*{thm*}{\protect\theoremname}
+  \theoremstyle{plain}
+  \newtheorem{prop}[thm]{\protect\propositionname}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+
+\input{general-preamble}          
+
+
+%\thanks{Kao gratefully acknowledges partial support from the National Science Foundation Postdoctoral Research Fellowship and from U.S. National Science Foundation grants DMS 1107452, 1107263, 1107367 "RNMS: GEometric structures And Representation varieties" (the GEAR Network).}
+
+\def\a{\alpha}
+\def\b{\beta}
+\def\s{\sigma}
+\def\Si{\Sigma}
+\def\G{\Gamma}
+\def\g{\gamma}
+\def\l{\lambda}
+\def\L{\Lambda}
+
+\def\D{\mathbb{D}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\H{\mathbb{H}}
+
+\def\pa{\partial}
+\def\ep{\varepsilon}
+
+\makeatother
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\factname}{Fact}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\theoremname}{Theorem}
+\providecommand{\theoremname}{Theorem}
+
+\begin{document}
+
+\title{Quasimultiplicativity}
+
+\maketitle
+
+
+
+
+%\bibliographystyle{amsalpha}
+%\bibliography{Bib}
+
+\end{document}

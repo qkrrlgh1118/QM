@@ -1,0 +1,65 @@
+
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\usepackage{enumitem}		% customizable list environments
+\newlength{\lyxlabelwidth}      % auxiliary length 
+ \let\footnote=\endnote
+\@ifundefined{lettrine}{\usepackage{lettrine}}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Theorem enviroment
+
+%\newtheorem{}{}{thmdefn}{Definition/Theorem}
+%\newtheorem{obs}{}[section]
+%\newtheorem*{thmdefn}{Definition/Theorem}
+%\newtheorem{thm}{Theorem}[section] % first theorem in section 1 will be 1.1
+\theoremstyle{definition}
+\newtheorem{thmx}{Theorem}
+\renewcommand{\thethmx}{\Alph{thmx}} % "letter-numbered" theorems
+%\newtheorem{obs}{Observation}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\def\a{\alpha}
+\def\b{\beta}
+\def\d{\delta}
+\def\s{\sigma}
+\def\k{\kappa}
+\def\t{\tau}
+\def\SI{\Sigma}
+\def\G{\Gamma}
+\def\g{\gamma}
+\def\l{\lambda}
+\def\L{\Lambda}
+\def\w{\omega}
+\def\dd{\mathrm{d}}
+
+
+\def\D{\mathbb{D}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\H{\mathbb{H}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+
+
+
+
+\def\pa{\partial}
+\def\ep{\varepsilon}
+\def\vphi{\varphi}
+\def\un{\underline}
+\def\bb{\mathbb}
+\def\cal{\mathcal}
+\def\scr{\mathscr}
+
+
