@@ -1,4 +1,4 @@
-\documentclass[11pt,oneside,reqno]{amsart}
+ \documentclass[11pt,oneside,reqno]{amsart}
 \usepackage{geometry}
 \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
 \usepackage{amstext}
@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{esint}
 \usepackage{color}
+
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -36,24 +37,50 @@
 \def\b{\beta}
 \def\s{\sigma}
 \def\Si{\Sigma}
+\def\A{\mathcal{A}}
 \def\G{\Gamma}
 \def\g{\gamma}
 \def\l{\lambda}
-\def\L{\Lambda}
+\def\L{\mathcal{L}}
 
 \def\D{\mathbb{D}}
+\def\P{\mathsf{P}}
 \def\R{\mathbb{R}}
 \def\C{\mathbb{C}}
+\def\CC{\mathcal{C}}
 \def\H{\mathbb{H}}
+\def\H{\mathbb{H}}
+\def\I{\mathrm{I}}
+\def\J{\mathrm{J}}
+\def\K{\mathrm{K}}
+\def\W{\mathcal{W}}
+\def\PR{\P(\R^d)}
+\def\M{\mathcal{M}}
+\def\Md{\mathsf{M}_d(\R)}
+\def\vps{\vphi^s}
 
-
+\def\w{\wedge}
 \def\pa{\partial}
 \def\ep{\varepsilon}
 \def\blp{B_{\text{loc}}(p)}
 \def\hol{H\"older }
 \def\fb{fiber-bunched }
 \def\mangle{\measuredangle}
-\def\psip{\psi_p}
+
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\t{\intercal}
+
+\newcommand{\Wloc}{\mathcal{W}_{\text{loc}}}
+\newcommand{\BV}{Bonatti-Viana}
+\newcommand{\tilu}{\tilde{u}}
+\newcommand{\tilv}{\tilde{v}}
+\newcommand{\tilw}{\tilde{w}}
+\newcommand{\edit}{\textcolor{red}{EDIT}}
+\newcommand{\Sig}{\Sigma_T}
+\newcommand{\slr}{\text{SL}_d(\R)}
+\newcommand{\glr}{\text{GL}_d(\R)}
 
 \makeatother
   \providecommand{\corollaryname}{Corollary}
@@ -67,49 +94,305 @@
 
 \begin{document}
 
-\title{Quasimultiplicativity}
+\section{Setting}
+\subsection{General set up}
+Let $(\Sig,f)$ be a mixing subshift of finite type where $T$ is an primitive irreducible adjacency matrix with entries in $\{0,1\}$. Fix $\theta \in (0,1)$ and we endow $\Sig$ with a metric $d$ such that for $x = (x_i)_i,y = (y_i)_i \in \Sig$, we have
+$$d(x,y)  = \theta^k,$$ 
+where $k$ is the largest integer such that $x_i = y_i$ for all $|i| \leq k$. Let $\L$ be the collection of all admissible words, and for each $n \in \N$, let $\L(n) \subset \L$ be the set of admissible words of length $n$. For $\I = [i_0\ldots i_{n-1}] \in \L(n)$, we define the associated cylinder (also denoted by $\I$) as 
+$$\I:=\{x \in \Sig \colon x_j = i_j \text{ for all } 0 \leq j \leq n-1\}$$ 
 
-\maketitle
-\section{Introduction/Summary}
-In this article, we prove Quasimultiplicativity of two classes of \hol and \fb cocycles over a hyperbolic base.
+We define the \textit{local stable set} $\Wloc^s(x)$ \textit{of $x \in \Sig$} as 
+$$\Wloc^s(x):=\{y \in \Sig \colon x_i = y_i \text{ for all } i \geq 0\}.$$
+We extend the definition to define the \textit{stable set} $\W^s(x)$ \textit{of} $x$ as the set of $y \in \Sig$ such that there exists $n \geq 0$ with $f^ny \in \Wloc^s(f^nx)$. We define the \textit{(local) unstable set $\W^u$ of $f$} as the (local) stable set of $f^{-1}$.
 
+For any $x,y\in \Sig$ with $x_0 = y_0$, we define $[x,y]:=\Wloc^s(x) \cap \Wloc^u(y)$. From the definition, $[x,y]$ is the unique point in the local neighborhood of $x$ and $y$ which shadows the orbit of $x$ in the future and the orbit of $y$ in the past.
+
+\subsection{Fiber-bunched cocycles}
+Let $A$ be an $\alpha$-\hol $\slr$-valued function on $\Sigma$: there exists $C>0$ such that
+$$\|A(x)-A(y)\|  \leq Cd(x,y)^\alpha,$$
+where $\|\cdot \|$ is the standard operator norm. 
+
+From $A$, we can define the associated cocycle $\A \colon \Sig \times \mathbb{Z} \to \slr$ by $\A(x,0) = Id$ and for all $n \in \N$,
+$$\A^n(x):=\A(x,n) = A(f^{n-1}x)\ldots A(fx)A(x) \text{ and }\A^{-n}(x) := \A(x,-n) = \big(\A^n(f^{-n}x)\big)^{-1}.$$
+Throughout the article, we will assume that the cocycle $\A$ is \textit{fiber-bunched}: for all $x\in \Sig$,
+$$\|A(x)\|\|A(x)^{-1}\| \theta^\alpha <1.$$ 
+Equivalently, the fiber-bunching condition says that for every $x \in \Sig$, the amount $A(x)$ expands/contracts the fiber is necessarily smaller than the expansion/contraction of $f$. 
+
+
+The \hol continuity and the fiber-bunching together ensure the convergence of the \textit{local stable/unstable holonomies} $H^{s/u}_{x,y}$: for any $y \in \Wloc^{s/u}(x)$, 
+\begin{equation}\label{eq: hol}
+H^s_{x,y} :=\lim\limits_{n \to \infty} \A^n(y)^{-1}\A^n(x) ~\text{ and }~H^u_{x,y}:= \lim\limits_{n \to -\infty} \A^n(y)^{-1}\A^n(x).
+\end{equation}
+
+The following proposition lists the properties of the holonomies defined as in $\eqref{eq: hol}$.
+\begin{prop}\label{prop:  hol rel} There exists $C>0$ such that for any $y,z \in \Wloc^s(x)$ and for any $n \geq 0$, 
+\begin{enumerate}
+\item $H^s_{x,x} = Id$ and $H^s_{x,y}\circ H^s_{y,z} = H^s_{x,z}$,
+\item $\A^n(x) = H^s_{f^ny,f^nx} \circ \A^n(y) \circ H^s_{x,y}$,
+\item $\|H^{s}_{x,y} - Id\| < Cd(x,y)^{\alpha}$.
+\end{enumerate}
+The similar relations hold for the unstable holonomies.
+\end{prop}
+
+\begin{rem}
+It is worth noting a special family of cocycles trivially admitting the holonomies: when $A(x)$ depends only on the zero-th entry $x_0$ of $x$ (ie, \textit{locally constant}), then both $H^s$ and $H^u$ from \eqref{eq: hol} trivially converge to $Id$ and satisfy properties from Proposition \ref{prop:  hol rel}. By decreasing $\theta$ if necessary, a locally constant cocycle is fiber-bunched.
+\end{rem}
+
+Using (2) of Proposition \ref{prop:  hol rel}, we can extend the definition of local stable holonomies $H^s_{x,y}$ for $y \in \W^s(x)$ not ncessarily in the local stable set of $x$ by
+$$H^s_{x,y}:= \A^n(y)^{-1} H^s_{f^nx,f^ny}\A^n(x),$$
+where $n \in \N$ is large enough so that $f^ny \in \Wloc^s{f^nx}$. We can likewise define unstable holonomies.  
+
+We now formulate the main assumptions of the theorem. Consider any periodic point $p$ and any of its homoclinic point $z \in \W^s(p )\cap \W^u(p)$. We define the \textit{holonomy loop} $\psi_p^z$ as the composition of the unstable holonomy from $p$ to $z$ and the stable holonomy from $z$ to $p$:
+$$\psi_p^z  := H^s_{z,p}\circ H^u_{p,z}.$$
+\begin{defn}
+Following Bonatti-Viana, we say the cocycle $\A$ is \textit{typical} if it is \hol and \fb, and satisfies two extra assumptions:
+\begin{enumerate}
+\item[A.] there exists a periodic point $p$ such that $P:=\A^r(p)$ has simple eigenvalues where $r$ is the period of $p$,  
+\item[B.] there exists a homoclinic point $z$ of $p$ such that $\psi_p^z$ twists the eigenspaces of $P$ in general position: denoting the eigenvectors of $P$ by $\{v_1,\ldots,v_n\}$, for any $1 \leq i \leq n$, $\psi_p^z(v_i)$ does not lie in the hyperplane spanned by all $v_j$ with $j \neq i$.
+\end{enumerate}
+\end{defn}
+\begin{rem}
+A few comments regarding the assumptions are in order. First, we may assume $p$ is a fixed point by replacing $f$ by the suitable power of $f$. Second, by replacing $z$ by its suitable backward iterate, we may assume $z \in \Wloc^u(p)$. We can then fix $l \in \N$ such that $f^lz \in \Wloc^s(p)$. From Proposition \ref{prop:  hol rel}, we can rewrite $\psi_p^z$ as
+\begin{equation}\label{eq: psi_p^z}
+\psi_p^z=P^{-l} \circ H^s_{f^lz,p}\circ\A^l(z) \circ H^u_{p,z}.
+\end{equation}
+
+
+\end{rem}
+
+Such assumptions are first introduced by Bonatti-Viana as sufficient conditions to establish the simplicity of the Lyapunov exponents of ergodic $f$-invariant measures with continuous local product structure.
+
+\subsection{Thermodynamics formalism}
+We define the \textit{singular value function} $\vps \colon \Md \to \R$ with parameter $s\geq 0 $ as follows:
+$$\vps(M) = \begin{cases} 
+      \alpha_1(M)\ldots\alpha_{\lfloor s \rfloor}(M)\alpha_{\lceil s \rceil}(M)^{\{s\}} & 0\leq s \leq d ,\\
+      |\det(M)|^{s/d} & d < s
+   \end{cases}$$
+where $\alpha_1(M) \geq \ldots \geq \alpha_d(M)$ are the singular values (the square roots of the eigenvalues of $M^*M$) of $M$. 
+It is well known that $\vps$ is submultiplicative for all $s$ (See Falconer's famous paper from 88; lemma 2.1):
+\begin{equation}\label{eq: submult}
+\vps(MN) \leq \vps(M) \vps(N).
+\end{equation}
+Moreover, the function $(M,s) \mapsto \vps(M)$ is upper semi-continuous, and has discontinuity at the integer $s=k$ where the singular values jump $\alpha_{k-1}(M)>\alpha_k(M) = 0$. If $M$ takes value in $\glr$, then $\vps(M)$ is continuous in both $M$ and $s$.
+The singular value function is widely used in dimension theory of self-affine sets (some refs).
+
+When $\vps$ is applied to the cocycle $\A$, $\vps(\A^n(\cdot))$ for each $n \in \N$ form a submultiplicative sequence of functions on $\Sig$. In particular, the cocycle can be studied via thermodynamics formalism. 
+In the following lemma, we show that $\vps$ is uniformly controlled within a cylinder for a \fb cocycle.
+\begin{lem}[bounded distortion]\label{lem: bdd distortion} Let $\A$ be \hol and fiber-bunched.
+Given $s \in [0,\infty)$, there exists $C>1$ such that for any $n \in \N$, any cylinder $\I \in \L(n)$, and any $x,y \in \I$, 
+$$C^{-1} \leq \frac{\vps(\A^n(x))}{\vps(\A^n(y))} \leq C.$$ 
+\end{lem}
+\begin{proof}
+From (3) of Proposition \ref{prop: hol rel}, we can fix $c>1$ such that the norm of any local holonomy is bounded above by $c$. In particular, $\vps$ evaluated at any local holonomy is uniformly bounded above by $c^s$. 
+Then, setting $z:=[x,y]$ and using (2) of Proposition \ref{prop:  hol rel} as well as \eqref{eq: submult}, we have 
+$$c^{-2s}\vps(\A^n(x)) \leq  \vps(\A^n(z)) =\vps( H^s_{f^nx,f^nz} \circ \A^n(x) \circ H^s_{z,x}) \leq c^{2s} \vps(\A^n(x)).$$
+Using unstable holonomies instead, we similarly have $c^{-2} \leq \vps(\A^n(y))/\vps(A^n(z))\leq c^2$.
+Then, the statement follows by setting $C = c^{4s}$.
+\end{proof}
+We can naturally consider $\vps$ as a function on the set of admissible words $\L$ in that
+$$\vps(\I) := \sup\limits_{x \in \I} \vps(\A^n(x)).$$
+The uniform control of $\vps$ within a cylinder from Lemma \ref{lem: bdd distortion} sufficient (for instance, in the definition of the Gibbs measure). 
+
+We can associate the \textit{singular value pressure} to a cocycle $\A$:
+\begin{equation}\label{eq: sing pressure}
+\P_\A(\vps) = \lim\limits_{n \to \infty} \frac{1}{n}\log\Big( \sum\limits_{\I \in \L(n)} \sup\limits_{x \in \I} \vps(\A^n(x))\Big)=\lim\limits_{n \to \infty} \frac{1}{n}\log\Big( \sum\limits_{\I \in \L(n)}  \vps(\I)\Big).
+\end{equation}
+The existence of the limit is guaranteed from the submultiplicativity \eqref{eq: submult} of the singular value function. The usual (additive) variational principle (Walters) extends to the subadditive potentials (Cao-Huang-Feng): denoting the space of $f$-invariant probability measures by $\M(f)$, we have
+\begin{equation}\label{eq: var prin}
+\P_\A(\vps) = \sup\limits_{\mu \in \M(f)} \Big( h_\mu(f)+\lambda_\A(\vps,\mu)\Big),
+\end{equation}
+where $h_\mu(f)$ is the measure-theoretic entropy (Walters or maybe Sinai?) and $$\lambda_\A(\vps,\mu) = \lim\limits_{n \to \infty} \frac{1}{n} \int \log \vps(\A^n(x)) d\mu(x) = \inf\limits_{n  \to \infty}\frac{1}{n} \int \log \vps(\A^n(x)) d\mu(x),$$
+whose limit is also guaranteed to exist from the submultiplicativity \eqref{eq: submult}. Unique zero (strict decrease) of $s$ affinity dimension, and continuity of and relation to study of self-affine sets and Lyapunov dimension and Hausdorff dimension.
+
+Bounded distortion allows us to treat the subadditive sequence as a subadditive sequence on $\L$.
+\begin{lem}
+Let $\Psi$ be a subadditive sequence of functions with bounded distortion. Then, the equilibrium states of $\Psi$ are the same as the equilibrium states of
+\end{lem}
+
+The supremum from \eqref{eq: var prin} is always achieved (from expansivity of the shift? check Cao-Feng-Huang), and any $\mu \in \M(f)$ attaining the supremum is called an \textit{equilibrium state}. While,  unique equilibrium state sufficient condition which we describe below. Unique equilibrium state arises as Gibbs measure which has applications....
+
+
+\begin{defn} The singular value function $\vps$ for a \fb cocycle is \textit{quasimultiplicative} if there exists $c>0$ and $k \in \N$ such that for any two cylinders $\I,\J \in\L$, there exists $\K = \K(\I,\J)\in \bigcup\limits_{i=1}^k\L(i)$ such that $\I\K\J \in \L$ and that
+$$\vphi^s(\I\K\J) \geq c \vphi^s(\I)\vphi(\J).$$ 
+\end{defn}
+ 
+Comment on the quasimultiplicativity. Used in blah blah. Locally constant setting irreducibility gives QM.
+
+The main reason why we want to establish quasimultiplicativity is the existence of the unique Gibbs measure: Feng establishes a sufficient condition for the existence of the unique, and hence ergodic, equilibrium state. 
+\begin{prop}[Feng-Factor maps; existence of the unique equilibrium state]
+Let $\Phi \colon \L \to [0,\infty)$ be a submultiplicative and subadditive 
+Gibbs property
+\end{prop}
+
+Such Gibbs measure is the unique equilibrium state.
+
+
+In which section, we show that the singular value function of a typical cocycle is quasimultiplicativce. Our main work.
+\begin{prop}
+The singular value function $\vps$ of a typical cocycle $\A$ is quasimultiplicative for all $s \in [0,\infty)$.
+\end{prop} 
+ 
+
+
+\subsection{Multilinear Algebra}
+We will make use of exterior algebra in studying 
+
+
+\section{Results (probably move upward; embed in the introduction)}
+
+
+
+\subsection{Singular value potential}
 \begin{thm}
-The singular value potential $\Psi_s$ is quasimultiplicative for all $s>0$.
+For a typical cocycle, the singular value potential $\vps$ is quasimultiplicative for all $s \in (0,d)$.
 \end{thm}
 
-\begin{thm}
-If $P$ and $\psip^z$ are irreducible, then the cocycle is quasimultiplicative.
-\end{thm}
+%\begin{thm}
+%If $P$ is semisimple, and $P$ and $\psi_p^z$ are irreducible, then the cocycle is quasimultiplicative.
+%\end{thm}
 
 \begin{thm}
 The set of all possible pointwise Lyapunov exponent is an interval. 
 \end{thm}
-Maybe extend this to higher dimension?
+Maybe extend this to multi dimension?
 
 \begin{thm}
 Multifractal analysis.
 \end{thm}
+Also, possible to extend to multi dimension?
+
+\begin{rem}
+Bonatti-Viana's condition clearly satisfies the assumption. It is generic.
+\end{rem}
+
+%\begin{rem}
+%Comment on the semisimplicity assumption on $P$.
+%\end{rem}
+
 
 \newpage
-\section{Preliminary}
-\section{Details}
-\subsection{Connecting orbits}
+\section{QM}
+In this section, we prove quasimultiplicativity of $\vps$ for $s\in \N$ by using $p$ as the reference point where we compare the directions responsible for the norm growth. We will first illustrate the idea when $\A$ is a locally constant cocycle. We will not distinguish between a vector and its corresponding line in the projective space when there is no confusion.
+
+
+For any $\R$-vector space $V$ with a norm $\|\cdot\|$ and any $A \in \text{End}(V)$, we define $v(A)$ and $u(A)$ as the most expanding direction of $A$ and $A^*$, respectively. 
+
+The following notations and constants will be used in common in what follows. The eigenvalues of $P$ are denoted by $\lambda_1 > \ldots > \lambda_d$ with corresponding eigenvectors $v_1,\ldots,v_d$. The adjoint $R:=P^*$ has identical eigenvalues as $P$ with corresponding eigenvectors $w_i$'s where $w_i = \text{span}(v_1,\ldots,v_{i-1},v_{i+1},v_{n})^\perp$. Also, the adjoint $(\psi_p^z)^*$ of the holonomy loop twists $w_i$'s into general position.
+
+We denote the cone around $v$ of size $\ep$ by $\CC(v,\ep):=\{w \colon \mangle (v,w ) < \ep\}$. Also, $\ep>0$ is a small constant such that $\psi_p^zv \not \in \CC(v_j,2\ep)$ for all $1 \leq j \leq d$ whenever $v \in \CC(v_i,\ep)$ for some $1 \leq i \leq d$. 
+
+\subsection{Locally constant cocycle}
+
+Given any two cylinders $\I,\J \in \L$, we will bring them close $p$ in finite iterates, and compare their directions which capture the behavior of $\vps$ to the eigendirections of $P$ which serve as the reference direction.
+
+For simplicity, we will describe the method for $\vphi^1$. For other $s \in \N$, it simply amounts to replacing $\A$ by its induced map $\A^{\wedge s}$ and $\R^d$ to $(\R^d)^{\wedge s}$. 
+
+Since local holonomies are all equal to the identity for a locally constant cocycle, in view of \eqref{eq: psi_p^z} the holonomy loop $\psi_p^z$ is simply equal to $$\psi_p^z = P^{-l}\A^l(z).$$
+
+
+Since the adjacency matrix $T$ is primitive, for any $\I\in \L$, there exists $\K_{\I} \in \L$ whose length is bounded above independent of $\I$ and the end of $\tilde{\I} = \I\K_{\I}$ is at the local neighborhood of $p$. Then we have two cases for $u(\A(\I))$:
+\begin{enumerate}
+\item  $u(\A(\tilde{\I})) \not\in \CC(v_i ,\ep)$ in for any $i$, and hence, a bounded number (depending on $\ep$ only) of $P$ maps $u(\A(\tilde{\I}))$ into  $\CC(v_i,\ep)$ for some $i$,
+\item $u(\A(\tilde{\I})) \in \CC(v_i ,\ep)$ already for some $i$.
+\end{enumerate}
+Either case, we apply $\A^l(z) = P^l\psi_p^z$ unless $i = 1$. Since $\psi_p^z$ maps each $v_i$ into general position with respect to all $v_i$'s, $P^l$ following $\psi_p^z$ will map $u(\A(\tilde{\I}))$ toward $v_1$. Applying more (yet bounded) $P$ if necessary, we can turn $u(\A(\tilde{\I}))$ as close to $v_1$ as we want. The only thing that matters is that angle $\A(\K_{\tilde{\I}})u(\A(\tilde{\I}))$ can be made as close to $v_1$ as needed with the length of $\K_\I\K_{\tilde{\I}}$ bounded above (by $k_1 \in \N$) independent of $\I$.
+
+The reason we wanted to map $u(\A(\tilde{\I}))$ close to $v_1$ under $\A(\K_{\tilde{\I}})$ is because the angle $\mangle (v_1,w_1)$ is necessarily bounded away from $\pi/2$. Hence, when we turn $v(\A(\tilde{\J}))$ close to $w_1$ by applying the analogous argument to the adjoint (ie, $\A(\K_{\tilde{\J}})^*v(\A(\tilde{\J}))$ is close to $w_1$ with $|\K_{\tilde{\J}}\K_\J| \leq k_2$ for some $k_2 \in \N$), then the angle $\mangle\big(\A(\K_{\tilde{\I}})u(\A(\tilde{I})),\A(\K_{\tilde{\J}})^* v(\A(\tilde{\J}))\big)$ is necessarily uniformly  bounded away (independent of $\I$ and $\J$) from $\pi/2$. Then $\K = \K_\I\K_{\tilde{\I}}\K_{\tilde{\J}}\K_\J$ is the required connecting cylinder for the quasimultiplicativity whose length is bounded above by $k_1+k_2$: denoting $\beta <\pi/2$ to be an upper bound on the angle, $M :=\max\limits_{x \in \Sig}\|A(x)\|$ and $m:=\min\limits_{x \in \Sig}m(A(x))$, we have 
+\begin{align*}
+\cos \mangle\big(v(\A(\tilde{\J})), \A(\K_{\tilde{\J}})\A(\K_{\tilde{\I}})u(\A(\tilde{\I}))\big) M^{k_1+k_2}
+&\geq\big\langle v(\A(\tilde{\J})), \A(\K_{\tilde{\J}})\A(\K_{\tilde{\I}})u(\A(\tilde{\I})) \big\rangle,\\
+&= \big\langle \A(\K_{\tilde{\J}})^*v(\A(\tilde{\J})), \A(\K_{\tilde{\I}})u(\A(\tilde{\I})) \big\rangle,\\
+&\geq \cos(\beta)\|\A(\K_{\tilde{\J}})^*v(\A(\tilde{\J}))\|\|\A(\K_{\tilde{\I}})u(\A(\tilde{\I}))\|,\\
+&\geq \cos(\beta)m(\A(\K_{\tilde{\J}}))m(\A(\K_{\tilde{\I}})),\\
+&\geq \cos(\beta) m^{k_1+k_2},
+\end{align*}
+and hence $\cos \mangle\big(v(\A(\tilde{\J})), \A(\K_{\tilde{\J}})\A(\K_{\tilde{\I}})u(\A(\tilde{\I}))\big) \geq \cos(\beta)(m/M)^{k_1+k_2}$.
+It then follow that
+\begin{align*}
+\|\A(\I\K\J)\| &\geq \|\A({\tilde{\J}})\A(\K_{\tilde{\J}})\A(\K_{\tilde{\I}})\A({\tilde{\I}})v(\A(\tilde{\I}))\|,\\
+&\geq \|\A(\tilde{\I})\|\|\A({\tilde{\J}})\A(\K_{\tilde{\J}})\A(\K_{\tilde{\I}}) u(\A(\tilde{\I}))\|,\\
+&\geq \cos(\beta)(m/M)^{k_1+k_2}\|\A(\tilde{\I})\|\|\A(\tilde{\J})\|,\\
+&\geq \cos(\beta)(m/M)^{k_1+k_2}m^{k_1+k_2}\|\A(\I)\|\|\A(\J)\|.
+\end{align*}
+
+\subsection{Not necessarily constant cocycle}
+Moving away from a locally constant cocycle to an arbitrarily typical cocycle, the argument is more-or-less the same, but we have to address a couple of issues:
+\begin{enumerate}
+\item Connect/shadow orbits; via taking bracket $[\cdot, \cdot]$
+\item Ensure that the quasimultiplicativity of $\vps$ remains to hold (by decreasing the constant if necessary) after taking the bracket. 
+\item Identify the fibers along $\Wloc^s(p)$ and $\Wloc^u(p)$ by local holonomies. 
+If $w$ is not on those two (stable or unstable) sets of $p$, then show that the loop $R_w$ is close to the identity. Here, $R_w$ for any $w$ in the local neighborhood is defined as the clockwise composition of the holonomies around the rectangle having $p$ and $w$ as opposite vertices:
+$$R_w : = H^u_{[w,p],p}\circ H^s_{w,[w,p]}\circ H^u_{[p,w],w}\circ H^s_{p,[p,w]}.$$
+
+
+\end{enumerate}
 
 
 
-Connecting two orbits. Given $x,y \in \blp$, we define the bracket $[x,y]$ as the unique..
+
+
+
+
+
+
+
+
+
+\newpage
+$\I$ with length $a$ and $\J$ with length $b$. Denote $x,y,z,$ to label points in the local neighborhood of $p$. Related points with be indicated with tildes and hats.
+
+Recall that $v_i$ is the eigenvector corresponding to the $i$-th eigenvalue $\lambda_i$ of $P$. We define $$\ep_0=\min\limits_{1\leq i,k\leq d} \mangle(v_i,\psi_p^zv_j)$$ as the minimum angle of the eigendirections by $\psi_p^z$. We fix $0<\ep_1 \ll \ep_0$ such that any $v \in \PR$ with $\mangle(v,v_i)$ for some $i$ satisfies $\mangle(\psi_p^zv,v_j) >\ep_0/2$ for any $1 \leq j \leq d$. Exponential convergence. Any $v \in v_i\setminus v_{i-1}$ converges exponentially to $v_{i}$ with rate $\lambda_i/\lambda_{i-1}$.
+Can be turned to $v_1$ with finite number of iterates. Bring close to $p$. If already 
+
+Using holonomies to identity the fibers, 
+
 \begin{lem}
-Given $\ep>0$, there exists $\d>0$ and $c>0$ such that $\mangle \Big(u(A^n(x)),H^s_{p,x}E^u \Big)<\ep $, then 
-$$\|A^{n+m}(\bar{t})\| \geq c\|A^n(\bar{t})\| \|A^m(t)\|$$
-where $t = [x,y]$ and $\bar{t} = f^{-n}t$.
+Given $\ep_1>0$ as above, there exists $c,k>0$ such that for any $\I \in \L(n_0)$, there exists $v \in S^{d-1}$ such that $A^n(x)v$ is $\ep$-close to $v_1$ and $\|A^n(x)v\| \geq c\|A^n(x)\|$. 
+\end{lem}
+\begin{proof} Since $(\Sig,f)$ is the mixing subshift of finite type, there exists $k_1$ depending only on the mixing rate of $f$ such that any two $\theta$-ball. Let $x \in \I$ such that $f^{a+k} x\in\Wloc^s(p)$. 
+
+Consider $v(\A^{a+k}(x))$. There exists $m \in \N$ such that $v :=v(\A^{a+k+m}(x))$ is $\ep_1$ close to some $v_i$. If $i =1$, we are done. If not, twist and apply $P$.
+\end{proof}
+
+For any $w$ in the local neighborhood of $p$, we define $R_w$ as the clockwise composition of the holonomies around the rectangle having $p$ and $w$ as opposite vertices:
+$$R_w : = H^u_{[w,p],p}\circ H^s_{w,[w,p]}\circ H^u_{[p,w],w}\circ H^s_{p,[p,w]}.$$
+From ---, we can bound the norm of $R_w$ as the distance $d(p,w)$.
+
+\begin{lem}[shadowing]
+Given $\ep>0$, there exists $c,\d>0$ such that the following holds: 
+suppose $x$ and $y$ are $\d$-close and $v$ and $w$ good. then 
+$$\vphi^s(A^{n+m}z) \geq c \vphi^s(A^n(z))\vphi^s(A^m(f^nz))$$
+\end{lem}
+
+
+\begin{lem}[Angle may change but still captures the growth well] Given $\ep$, there exists $\delta,c>0$ such that the following holds: for any $x,y \in \Sigma$ and $n,m \in \N$ such that $d(f^nx,y)<\delta$ and $\mangle u(A^n(x)),v(A^m(y)^\perp)>\epsilon$, then there exists $z$ such that 
+$$\vphi^s(A^{n+m}(z)) \geq c \vphi^s(A^n(x))\vphi^s(A^m(y)).$$ 
 \end{lem}
 \begin{proof}
-How about the wedge?\\
-Note from the definition that 
+Using the holonomy, $H^u_{f^nx,f^nz}u(A^n(x))$ captures the norm of $A^n(z)$ and is close to $u(A^n(x))$.
 \end{proof}
 
 
-%\bibliographystyle{amsalpha}
-%\bibliography{Bib}
+If $\psi$ moves level, then we can do. 
+
+
+\subsection{Adjoint action}
+
+
+\section{To do}
+\begin{itemize}
+\item Given $\I,\J$, find $\K = \K(\I,\J)$ such that $\K$ works for all $s \in \N$ simultaneously. 
+\item $\varphi^k,\varphi^{k+1}$ are quasimultiplicative for $k \in \N$, then $\vps$ is qm for all $s \in [k,k+1]$.
+Write $s = ka+(k+1)(1-a)$ for $a \in (0,1)$. Then take $c_s = c_k^{a}c_{k+1}^{1-a}$. This works because we are choosing the common $\K$ for $k$ and $k+1$.
+\item  
+Simultaneous (multidimensional) fractal analysis. Carefully chosen details. But write up quasimultiplicativity first. Also, make sure to add explanation when passing to exterior algebra, everything works fine (similar to $\|\cdot\|$ case). $u,v$ directions are well-defined, and any wedge product converges to $v_1 \wedge \ldots \wedge v_k$ under the multiple application of $P$. Define angle in exterior algebra (by induced inner product or on Grassmann?).
+
+For simultaneous fractal analysis, $N_k:=\L(k)$. The bigger $N_k$ the better.  But for reasonable $t_1,t_2,\ldots.$ Care needs to be taken for extreme combination of $t_i's$. 
+
+\item $k$-typical imply ---. Ie, define typical as $k$-typical for all $k$. Have statement like $k-$typical then statement holds upto $k$-dimensional vector, 
+\item Clear write up, multilinear algebra, quantifiers for locally constant case -- set up constants, definition for $k$-typical. Check detail for (describe how) bounded distortion enables us to think of $\A$ as locally constant cocycle in view of thermodynamics formalism. State theorems correctly. Add introduction. Add bib. Check Pesin et. all for the unique equilibrium parts and chapter 7.
+\item Fiber-bunching is sufficient to do thermodynamics formalism; ie, equilibrium state.
+\item One-sided or two-sided
+\end{itemize}
 
 \end{document}
